@@ -1,18 +1,8 @@
 {
   "name": "Android Development (Kotlin/Java)",
-  "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
-  
-  "features": {
-    "ghcr.io/nordcominc/devcontainer-features/android-sdk:1": {
-      "platforms": "android-34",
-      "buildToolsVersion": "34.0.0",
-      "cmdLineToolsVersion": "latest"
-    },
-    "ghcr.io/devcontainers/features/gradle:1": {
-      "version": "latest"
-    }
+  "build": {
+    "dockerfile": "Dockerfile"
   },
-
   "customizations": {
     "vscode": {
       "settings": {
@@ -29,12 +19,5 @@
       ]
     }
   },
-
-  "remoteEnv": {
-    "ANDROID_HOME": "/usr/local/android-sdk"
-  },
-
-  "remoteUser": "vscode",
-  
-  "postCreateCommand": "yes | sdkmanager --licenses"
+  "remoteUser": "vscode"
 }
