@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/java:1-17-bullseye
 
+# Switch to root to safely run apt-get and install system utilities
+USER root
+
 # Explicitly set JAVA_HOME so the Android command line tools can find it
 ENV JAVA_HOME="/usr/local/sdkman/candidates/java/current"
 
@@ -17,7 +20,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && rm /tmp/cmdline-tools.zip \
     && chown -R vscode:vscode ${ANDROID_HOME}
 
-# Switch to the vscode user to install SDK packages safely
+# Switch back to the non-root vscode user to install SDK packages safely
 USER vscode
 
 # Accept all licenses and install the required Android packages
