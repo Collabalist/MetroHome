@@ -1,12 +1,10 @@
 {
   "name": "Android Development (Kotlin/Java)",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+  
   "customizations": {
     "vscode": {
       "settings": {
-        "java.home": "/usr/local/sdkman/candidates/java/current",
         "kotlin.compiler.jvmTarget": "17",
         "java.configuration.updateBuildConfiguration": "automatic"
       },
@@ -19,5 +17,11 @@
       ]
     }
   },
-  "remoteUser": "vscode"
+
+  "remoteEnv": {
+    "ANDROID_HOME": "/home/vscode/android-sdk",
+    "PATH": "${containerEnv:PATH}:/home/vscode/android-sdk/cmdline-tools/latest/bin:/home/vscode/android-sdk/platform-tools"
+  },
+
+  "postCreateCommand": "mkdir -p /home/vscode/android-sdk/cmdline-tools && wget -q https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O /tmp/cmdline-tools.zip && unzip -q /tmp/cmdline-tools.zip -d /home/vscode/android-sdk/cmdline-tools && mv /home/vscode/android-sdk/cmdline-tools/cmdline-tools /home/vscode/android-sdk/cmdline-tools/latest && rm /tmp/cmdline-tools.zip && yes | /home/vscode/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses && /home/vscode/android-sdk/cmdline-tools/latest/bin/sdkmanager \"platforms;android-34\" \"build-tools;34.0.0\" \"platform-tools\""
 }
